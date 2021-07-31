@@ -20,28 +20,34 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;example.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;Pisces | Gemini&quot;:240,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;Available values&quot;:&quot;tabs | buttons&quot;,&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:&quot;livere&quot;,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
-<meta name="description" content="一、定义上的区别 1、质控品：用于检查分析仪器或方法的性能，是一种稳定的物质，用于验证分析仪器或方法的性能。 2、校准品：用于定量检测时对检测项目的校准，是具有在校准函数中用作独立变量值的参考物质。一般包含2个到多个浓度水平。 3、标准品：具有确定特性量值，用于评价测定方法的物质。包括国家参考品和企业内部参考品，可用于主要原材料的质量控制、生产工艺及反应体系的确定研究、产品放行、注册检验、监督抽验">
+<meta name="description" content="ROC曲线（Receiver operating characteristic curve），即受试者工作特征曲线，主要用来评价某个指标对两类被试（如病人和健康人）分类&#x2F;诊断的效果，以及寻找最佳的指标临界值使得分类效果最好。cutoff值即临界值，是判断检测结果的标准，一般&gt;cutoff值判定为阳性，&lt;cutoff值判定为阴性。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="质控品、校准品和标准品的区别1">
-<meta property="og:url" content="http://example.com/2021/07/05/%E8%B4%A8%E6%8E%A7%E5%93%81%E3%80%81%E6%A0%A1%E5%87%86%E5%93%81%E5%92%8C%E6%A0%87%E5%87%86%E5%93%81%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:title" content="用ROC曲线确定cutoff值">
+<meta property="og:url" content="http://example.com/2021/07/31/%E7%94%A8ROC%E6%9B%B2%E7%BA%BF%E7%A1%AE%E5%AE%9Acutoff%E5%80%BC/index.html">
 <meta property="og:site_name" content="化学发光">
-<meta property="og:description" content="一、定义上的区别 1、质控品：用于检查分析仪器或方法的性能，是一种稳定的物质，用于验证分析仪器或方法的性能。 2、校准品：用于定量检测时对检测项目的校准，是具有在校准函数中用作独立变量值的参考物质。一般包含2个到多个浓度水平。 3、标准品：具有确定特性量值，用于评价测定方法的物质。包括国家参考品和企业内部参考品，可用于主要原材料的质量控制、生产工艺及反应体系的确定研究、产品放行、注册检验、监督抽验">
+<meta property="og:description" content="ROC曲线（Receiver operating characteristic curve），即受试者工作特征曲线，主要用来评价某个指标对两类被试（如病人和健康人）分类&#x2F;诊断的效果，以及寻找最佳的指标临界值使得分类效果最好。cutoff值即临界值，是判断检测结果的标准，一般&gt;cutoff值判定为阳性，&lt;cutoff值判定为阴性。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-07-05T12:28:48.000Z">
-<meta property="article:modified_time" content="2021-07-31T10:30:09.140Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img18@main/2021/07/31/1627714907748-afd143fd-a240-4bc0-8bac-ab4faeaa96a1.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img7@main/2021/07/31/1627717948809-4f9bf8fa-06f5-410e-a8c5-f70b41ea86fd.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img14@main/2021/07/31/1627718417057-d277cb53-1d9d-4491-a599-a9c79f0743ab.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img1@main/2021/07/31/1627718779669-7231ccf0-b64c-433b-8601-9aba309d6d34.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img4@main/2021/07/31/1627718915821-80b60853-c063-4a09-b86c-3a9df11f3efd.png">
+<meta property="article:published_time" content="2021-07-31T10:34:39.000Z">
+<meta property="article:modified_time" content="2021-07-31T10:41:30.443Z">
 <meta property="article:author" content="三冬四夏">
-<meta property="article:tag" content="试剂">
+<meta property="article:tag" content="分享">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/filess/img18@main/2021/07/31/1627714907748-afd143fd-a240-4bc0-8bac-ab4faeaa96a1.png">
 
 
-<link rel="canonical" href="http://example.com/2021/07/05/%E8%B4%A8%E6%8E%A7%E5%93%81%E3%80%81%E6%A0%A1%E5%87%86%E5%93%81%E5%92%8C%E6%A0%87%E5%87%86%E5%93%81%E7%9A%84%E5%8C%BA%E5%88%AB/">
+<link rel="canonical" href="http://example.com/2021/07/31/%E7%94%A8ROC%E6%9B%B2%E7%BA%BF%E7%A1%AE%E5%AE%9Acutoff%E5%80%BC/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;07&#x2F;05&#x2F;%E8%B4%A8%E6%8E%A7%E5%93%81%E3%80%81%E6%A0%A1%E5%87%86%E5%93%81%E5%92%8C%E6%A0%87%E5%87%86%E5%93%81%E7%9A%84%E5%8C%BA%E5%88%AB&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;07&#x2F;05&#x2F;质控品、校准品和标准品的区别&#x2F;&quot;,&quot;title&quot;:&quot;质控品、校准品和标准品的区别1&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;07&#x2F;31&#x2F;%E7%94%A8ROC%E6%9B%B2%E7%BA%BF%E7%A1%AE%E5%AE%9Acutoff%E5%80%BC&#x2F;&quot;,&quot;path&quot;:&quot;2021&#x2F;07&#x2F;31&#x2F;用ROC曲线确定cutoff值&#x2F;&quot;,&quot;title&quot;:&quot;用ROC曲线确定cutoff值&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>质控品、校准品和标准品的区别1 | 化学发光</title>
+<title>用ROC曲线确定cutoff值 | 化学发光</title>
   
 
   <script src="/js/third-party/analytics/baidu-analytics.js"></script>
@@ -110,7 +116,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -123,6 +129,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-ROC%E6%9B%B2%E7%BA%BF%E5%9C%A8%E8%AF%8A%E6%96%AD%E4%B8%AD%E7%9A%84%E4%B8%BB%E8%A6%81%E7%94%A8%E9%80%94"><span class="nav-number">1.</span> <span class="nav-text">1.ROC曲线在诊断中的主要用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">2.基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-ROC%E6%9B%B2%E7%BA%BF%E7%BB%98%E5%88%B6%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">3.ROC曲线绘制原理</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -196,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/05/%E8%B4%A8%E6%8E%A7%E5%93%81%E3%80%81%E6%A0%A1%E5%87%86%E5%93%81%E5%92%8C%E6%A0%87%E5%87%86%E5%93%81%E7%9A%84%E5%8C%BA%E5%88%AB/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/31/%E7%94%A8ROC%E6%9B%B2%E7%BA%BF%E7%A1%AE%E5%AE%9Acutoff%E5%80%BC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -209,7 +216,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          质控品、校准品和标准品的区别1
+          用ROC曲线确定cutoff值
         </h1>
 
         <div class="post-meta-container">
@@ -219,16 +226,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-07-05 20:28:48" itemprop="dateCreated datePublished" datetime="2021-07-05T20:28:48+08:00">2021-07-05</time>
+      <time title="创建时间：2021-07-31 18:34:39 / 修改时间：18:41:30" itemprop="dateCreated datePublished" datetime="2021-07-31T18:34:39+08:00">2021-07-31</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-07-31 18:30:09" itemprop="dateModified" datetime="2021-07-31T18:30:09+08:00">2021-07-31</time>
-      </span>
 
   
     <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
@@ -247,8 +248,8 @@
       <span class="post-meta-item-text">Changyan：</span>
     
     
-      <a title="changyan" href="/2021/07/05/%E8%B4%A8%E6%8E%A7%E5%93%81%E3%80%81%E6%A0%A1%E5%87%86%E5%93%81%E5%92%8C%E6%A0%87%E5%87%86%E5%93%81%E7%9A%84%E5%8C%BA%E5%88%AB/#SOHUCS" itemprop="discussionUrl">
-        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/07/05/质控品、校准品和标准品的区别/" itemprop="commentCount"></span>
+      <a title="changyan" href="/2021/07/31/%E7%94%A8ROC%E6%9B%B2%E7%BA%BF%E7%A1%AE%E5%AE%9Acutoff%E5%80%BC/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/07/31/用ROC曲线确定cutoff值/" itemprop="commentCount"></span>
       </a>
     
   </span>
@@ -259,14 +260,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.3k</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -277,54 +278,38 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><strong>一、定义上的区别</strong></p>
-<p>1、质控品：用于检查分析仪器或方法的性能，是一种稳定的物质，用于验证分析仪器或方法的性能。</p>
-<p>2、校准品：用于定量检测时对检测项目的校准，是具有在校准函数中用作独立变量值的参考物质。一般包含2个到多个浓度水平。</p>
-<p>3、标准品：具有确定特性量值，用于评价测定方法的物质。包括国家参考品和企业内部参考品，可用于主要原材料的质量控制、生产工艺及反应体系的确定研究、产品放行、注册检验、监督抽验等。</p>
-<span id="more"></span>
-
-<p><strong>二、是否都需要注册</strong></p>
-<p>1、校准品：一般可与配合试剂合并申请注册，也可单独申请注册；</p>
-<p>2、质控品：一般可与配合诊断试剂合并申请注册，也可以单独申请注册。</p>
-<p>3、标准品：国家参考品由中国食品药品检定研究院负责组织制备、标定，并向国家药品标准品委员会申报获批。企业内部标准品是由企业根据产品的特性研制用于满足产品生产过程中的质量控制、性能评估等，一般不需要注册。</p>
-<p><strong>三、是否都需要溯源性文件</strong></p>
-<p>1、校准品：要求提供完整的溯源性文件。</p>
-<p>2、质控品：一般无溯源性要求，但对于定值质控品，有赋值准确度的要求。</p>
-<p>3、标准品：如已有相应的国家或国际标准品的项目，则企业内部标准品应溯源至国家或国际标准品；如无国家或国际标准品，企业参考品的制备应有规范的质量控制程序，比如用金标准的方法或已上市同类产品对其进行验证确认等。</p>
-<p><strong>四、性能评估指标</strong></p>
-<p>1、对于校准品和质控品，除了溯源性上的差别外，一般都包括装量、瓶间差、生物安全性、稳定性等指标的要求。</p>
-<p>2、而对于标准品：根据项目的不同，选用相应的试剂盒或金标准方法等，对参考品进行验证分析。</p>
-<p>校准品、标准品、质控品三者同为参考物质。参考物质是一种材料或者物质，某一种或多种特性值只够均匀并被良好确定，用于校准测量系统，评价测量程序或为材料赋值。但三者并非用一个概念，他们有各自不同的应用场合。临床上常常有很多错误的应用，例如将不同厂商的校准品应用于检测系统；使用给定值的质控品评价检测系统；使用质控品来校准检测系统等等。校准品、标准品、质控品的来源及定值方式，得出正确使用三种参考物质的方法。</p>
-<p>1). 传统的方法的缺点</p>
-<p>传统的检验项目，要使得检验结果可靠或者有依据，往往会使用一个已知浓度的标准品同样品一同测定。</p>
-<p>传统的标准液用纯水配制，同血清相比，成份非常简单，除了待测物质外只有水了。此时在将样品同标准品相比较时，引入了基质效应。</p>
-<p>基质效应：检体中的非测定物质对测定量的影响。</p>
-<p>换句通俗的话说也就是，检体中测定物外的其他物质对||检测的干扰，使检测结果偏离真值。此时通过同无基质效应的标准品比较得出的有基质效应的样品检测值，将偏离于真值。</p>
-<p>是否能使用标准液取决于检测方法学，干扰极小的决定性方法或者某些已知干扰的参考方法可直接使用标准品。</p>
-<p>2).  标准品的定值</p>
-<p>一般而言，检验工作中使用的标准品属应用标准。将符合质量标准的纯品使用称量法和容量法配制成溶液。用决定性方法反复测定，结果在规定的范围内属合格。测定制的可靠性取决于鉴定方法，分析方法的可靠性不如公认的称量法和容量法。标准品值由称量和容量法计算确定。决不可将实测值替代修正。</p>
-<p>3). 引入校准品</p>
-<p>为了克服纯标准品和病人样品间的基质差异，20年前开始应用具有与病人样品基质效应相似的校准品替代标准品，用于日常工作。</p>
-<p>4). 校准品的定值</p>
+        <blockquote>
+<p>ROC曲线（Receiver operating characteristic curve），即受试者工作特征曲线，主要用来评价某个指标对两类被试（如病人和健康人）分类/诊断的效果，以及寻找最佳的指标临界值使得分类效果最好。<br>cutoff值即临界值，是判断检测结果的标准，一般&gt;cutoff值判定为阳性，&lt;cutoff值判定为阴性。<br> <span id="more"></span>  </p>
+</blockquote>
+<h2 id="1-ROC曲线在诊断中的主要用途"><a href="#1-ROC曲线在诊断中的主要用途" class="headerlink" title="1.ROC曲线在诊断中的主要用途"></a>1.ROC曲线在诊断中的主要用途</h2><p> ROC曲线的主要用途有两个：</p>
 <ul>
-<li><p>校准品来源：校准品大多来源为人样品的混合物，如混合血清。本身内含被检分析物，植被时刻添加某些分析物，增加含量。</p>
-</li>
-<li><p>定值方法：校准品中被检分析物的含量无法由称量法和容量法确定，只能依赖于分析方法。校准品的校准值只能取决于分析方法和检测系统。但所有用于检验中的检测方法、仪器、试剂等都是用来监测病人的新鲜样品的，不是用来监测校准品这样处理过的样品的。所有校准品都是处理过的样品，和新鲜样品有着新的基质差异。若使用公认的参考方法去标化测定校准品，测定程序是严格的，测定只是可靠的，但不是校准值。使用该测定值去校准常规的检测系统时，校准品中的分析物被检测时的表现明显不同于新鲜病人样品，不能将参考方法系列的准确度通过校准品传递给病人。</p>
-</li>
+<li>1）评价某个/多个指标对两类被试（如病人和健康人）分类/诊断的效果。通过画出某个指标的ROC曲线就可以很明确地看出其分类/诊断效果的好坏；另外，可以同时画出多个指标的ROC曲线并计算各自的AUC（area under ROC，ROC曲线下的面积），就可以知道哪个指标的分类/诊断效果更好。  </li>
+<li>2）寻找最佳的指标阈值使得分类效果最佳。    </li>
 </ul>
-<p>如先使用公认的参考方法检测病人样品，再以具有参考值的病人样品去校准某检测系统。此时该检测系统在检测其他新鲜病人样品时，这些病人样品结果的溯源性可上溯至公认的参考方法。也即用新鲜病人样品是校准系统的最佳校准品。</p>
-<p>但是具有参考值的新鲜病人样品无法用于常规工作所有方法、仪器、试剂或检测系统的校准；只能依靠现有的校准品，如何去确定校准品的校准值是关键。评级校准值可靠性的唯一要求是：被校准品校准后的检测系统，对病人样品检测的检验结果和某些指定参考方法对病人样品的检验结果具可比性。校准值不是测定值，是纠正的调整值。</p>
-<p>5). 校准品的专用性</p>
-<p>在以往的应用中用户往往不注意校准品的应用的专用性，任何方法或仪器、试剂使用一个校准品，严重影响检验质量。从上面的校准品定值方法中，我们可以知道，只有在使用了和定值时相同的检测系统，得出的结果才能同参考方法结果具可比性。</p>
-<p>6). 质控品定值</p>
+<h2 id="2-基本概念"><a href="#2-基本概念" class="headerlink" title="2.基本概念"></a>2.基本概念</h2><p><img src="https://cdn.jsdelivr.net/gh/filess/img18@main/2021/07/31/1627714907748-afd143fd-a240-4bc0-8bac-ab4faeaa96a1.png">      </p>
 <ul>
-<li><p>质控品的来源：质控品的来源同校准品大致相同，厂商可能会更具自己的要求添加了很多物质，此时有些物质的添加量常常达到病理状态的高浓度，在应用于某一项目时，对这个项目来说基质效应将更大。</p>
+<li>1.真阳性率（TPR, True positive rate）：所有实际为阳性的样本被正确地判断为阳性的个数与所有实际为阳性的样本个数之比，TPR又称为Sensitivity（灵敏度）。<br>计算公式：  <blockquote>
+<p>TPR=$\frac{A}{A+C}$=$\frac{180}{188}$  </p>
+</blockquote>
 </li>
-<li><p>定值方法：有些厂商会给自己的标准品定一个定值范围，这个定值范围是由厂商联合几家使用同样检测系统的临床用户，仅多次测定得出的均值。此时如果将该质控品应用于另一个检测系统，由于方法学的不同，可能得出同厂商给出值有较大差异的值。此时不能认为该检测系统的准确度不佳。此时需要强调的是检测系统都是用来测定新鲜血清的，不是用来测定质控品或其他物质的。检测系统只有在检测新鲜血清是得出的结果才具有溯源性。不同检测系统之间只有在检测新鲜血清时才具可比性。</p>
+<li>2.假阳性率（FPR, False positive rate）：所有实际为阴性的样本被错误地判断为阳性的个数与所有实际为阴性的样本个数之比，FPR等于1-Specificity。<br>计算公式：  <blockquote>
+<p>FPR=$\frac{C}{A+C}$=$\frac{8}{188}$   </p>
+</blockquote>
 </li>
+<li>3.真阴性率:所有实际为阴性的样本被正确地判断为阴性的个数与所有实际为阳性的样本个数之比，又称为特异度（Specificity，Sp）。<br>计算公式： <blockquote>
+<p>Sp=$\frac{D}{B+D}$=1-FPR=$\frac{200}{212}$   </p>
+</blockquote>
+</li>
+<li>4.假阴性率：所有实际为阳性的样本被错误地判断为阴性的个数与所有实际为阴性的样本个数之比，又称为漏诊率（omission diagnostic，β）。<blockquote>
+<p>β=$\frac{B}{B+D}$=1-Sp=$\frac{12}{212}$     </p>
+</blockquote>
+</li>
+<li>5.AUC（Area Under Curve） ：ROC曲线下的面积，用来表示预测准确性，AUC值越高，也就是曲线下方面积越大，说明预测准确率越高。曲线越接近左上角（X越小，Y越大），预测准确率越高。   </li>
+<li>6.约登指数(Youden index)：也称正确指数，是评价筛查试验真实性的方法，假设其假阴性（漏诊率）和假阳性（误诊率）的危害性同等意义时，即可应用约登指数。约登指数是灵敏度与特异度之和减去1，约登指数在0-1之间，指数越大，真实性越高。</li>
 </ul>
+<h2 id="3-ROC曲线绘制原理"><a href="#3-ROC曲线绘制原理" class="headerlink" title="3.ROC曲线绘制原理"></a>3.ROC曲线绘制原理</h2><p><img src="https://cdn.jsdelivr.net/gh/filess/img7@main/2021/07/31/1627717948809-4f9bf8fa-06f5-410e-a8c5-f70b41ea86fd.png"><br>如图，有20个测试，被分成两类，样本属性=1的表示阳性样本，样本属性=0的表示阴性样本。根据不同的检测值(临界值)，分别计算灵敏度、特异性和约登指数。如下表：<br><img src="https://cdn.jsdelivr.net/gh/filess/img14@main/2021/07/31/1627718417057-d277cb53-1d9d-4491-a599-a9c79f0743ab.png"><br>以灵敏度为纵坐标，1-特异性为横坐标，绘制ROC曲线如下：<br><img src="https://cdn.jsdelivr.net/gh/filess/img1@main/2021/07/31/1627718779669-7231ccf0-b64c-433b-8601-9aba309d6d34.png"><br><img src="https://cdn.jsdelivr.net/gh/filess/img4@main/2021/07/31/1627718915821-80b60853-c063-4a09-b86c-3a9df11f3efd.png"><br>AUC面积即为ROC曲线下的面积，当检测值(临界值)为8时，此时约登指数最大，真实性最高，即最适cutoff值为8，检测结果&gt;8时为阳性，反之为阴性。  </p>
 <hr>
-<p>来源：CAIVD</p>
+<p>关注微信公众号，获取更多技能及资源下载<br><img src = https://cliaivd.github.io/about/gongzhonghao300x300.jpg>  </p>
 
     </div>
 
@@ -334,20 +319,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E8%AF%95%E5%89%82/" rel="tag"># 试剂</a>
+              <a href="/tags/%E5%88%86%E4%BA%AB/" rel="tag"># 分享</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/07/01/%E4%BD%93%E5%A4%96%E8%AF%8A%E6%96%AD%E8%AF%95%E5%89%82%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87/" rel="prev" title="体外诊断试剂性能评估指标">
-                  <i class="fa fa-chevron-left"></i> 体外诊断试剂性能评估指标
+                <a href="/2021/07/14/%E5%85%8D%E7%96%AB%E7%90%83%E8%9B%8B%E7%99%BD/" rel="prev" title="免疫球蛋白">
+                  <i class="fa fa-chevron-left"></i> 免疫球蛋白
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/07/09/%E5%85%B3%E4%BA%8E%E4%BD%93%E5%A4%96%E8%AF%8A%E6%96%AD%E8%AF%95%E5%89%82%E6%B3%A8%E5%86%8C%E6%8A%BD%E6%A0%B7/" rel="next" title="关于体外诊断试剂注册抽样">
-                  关于体外诊断试剂注册抽样 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/07/31/%E5%8C%BB%E7%96%97%E5%99%A8%E6%A2%B0%E6%8A%80%E6%9C%AF%E5%AE%A1%E8%AF%84%E4%B8%AD%E5%BF%83%E5%90%84%E9%83%A8%E9%97%A8%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F/" rel="next" title="医疗器械技术审评中心各部门联系方式">
+                  医疗器械技术审评中心各部门联系方式 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
